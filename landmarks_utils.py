@@ -36,29 +36,28 @@ def two_points_distance( x_ini,y_ini,x_fin,y_fin):
 def calculate_DF(width_face,height_face):
     return math.sqrt(width_face*height_face)
 
-def calculate_NME(y_true,y_pred ,dF):
-
-   return (mean_squared_error(y_true,y_pred))/dF
-
-def calculate_NME_bySample(y_true,y_pred,dF):
-
-    return 1/68*(math.pow((y_true-y_pred),2)/dF)
-
-
 def calculate_fauilre_rate(y_true , y_pred , df):
     NME = 0
-    sum=0
     error = 0
-    alpha = 0.08
     for i in range(0,68):
-        for j in range(0,2):
-              NME = calculate_NME_bySample(y_true[i,j],y_pred[i,j] ,df)
-              if NME >=0.08:
-                error = error+1
+         first_term = y_true[i,0]-y_pred[i,0]
+         snd_term = y_true[i,1]-y_pred[i,1]
+         NME = ((math.pow((first_term-snd_term),2))/df)
+         if NME >=0.08:
+            error = error+1
 
 
     return error
 
+def calculate_NME(y_true , y_pred , df):
+    NME = 0
+    for i in range(0,68):
+              first_term = y_true[i,0]-y_pred[i,0]
+              snd_term = y_true[i,1]-y_pred[i,1]
+              NME = NME + ((math.pow((first_term-snd_term),2))/df)
+            
+    return 1/68*NME
+         
          
 
           
