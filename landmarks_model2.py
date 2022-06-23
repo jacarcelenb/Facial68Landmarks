@@ -49,7 +49,7 @@ with mp_face_mesh.FaceMesh(
                     
                      cv2.circle(frame,( x, y),2,(255,255,0),2)
         cv2.imshow("Frame", frame)
-print(len(landmark_points_68))
+
 y_pred = np.array(y_pred, dtype=np.float32).reshape((-1, 2))
 
 cv2.waitKey(0)
